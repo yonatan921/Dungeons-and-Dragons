@@ -8,8 +8,8 @@ public abstract class Trap extends Enemies {
     protected Boolean visible = true;
 
     public Trap(String name, Integer health_pool, Integer attack_points, Integer defence_points, Integer experience_value,
-                Integer visibility_time, Integer invisibility_time) {
-        super(name, health_pool, attack_points, defence_points, experience_value);
+                Integer visibility_time, Integer invisibility_time, Character tile) {
+        super(name, health_pool, attack_points, defence_points, experience_value, tile);
         this.visibility_time = visibility_time;
         this.invisibility_time = invisibility_time;
     }

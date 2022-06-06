@@ -9,6 +9,7 @@ public abstract class Mage extends Player{
     protected Integer hits_count;
     protected Integer ability_range;
 
+    //constructors
     public Mage(String name, Integer health_pool, Integer attack_points, Integer defence_points, Integer mana_pool,
                 Integer mana_cost , Integer spell_power, Integer hits_count, Integer ability_range) {
         super(name, health_pool, attack_points, defence_points);
@@ -19,4 +20,7 @@ public abstract class Mage extends Player{
         this.hits_count = hits_count;
         this.ability_range = ability_range;
     }
+
+    //methods
+    protected void blizzard(){}//TODO: implement
 }

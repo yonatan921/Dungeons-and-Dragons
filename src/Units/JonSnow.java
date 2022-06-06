@@ -1,5 +1,4 @@
 package Units;
-
 public class JonSnow extends Warrior {
     //constructor
     public JonSnow(){

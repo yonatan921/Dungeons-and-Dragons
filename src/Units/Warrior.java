@@ -9,4 +9,7 @@ public abstract class Warrior extends Player {
         super(name, health_pool, attack_points, defence_points);
         this.ability_cooldown = ability_cooldown;
     }
+
+    //methods
+    protected void avengers_shield(){}//TODO: implement
 }

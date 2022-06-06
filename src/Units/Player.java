@@ -1,5 +1,7 @@
 package Units;
 
+import Units.Units;
+
 public abstract class Player extends Units {
     //fields
     protected Integer Experience = 0;

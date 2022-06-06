@@ -9,4 +9,7 @@ public abstract class Rogue extends Player {
         super(name, health_pool, attack_points, defence_points);
         this.cost = cost;
     }
+
+    //methods
+    protected void fan_of_knives(){}//TODO: implement
 }
