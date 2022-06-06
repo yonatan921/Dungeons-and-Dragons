@@ -1,5 +1,4 @@
 package Units;
-;
 
 public class TheHound extends Warrior {
     //constructor

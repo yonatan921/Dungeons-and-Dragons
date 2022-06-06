@@ -1,6 +1,6 @@
 package Units;
 
-public abstract class Monster extends Enemies {
+public abstract class Monster extends Enemies{
     //fields
     protected Integer vision_range;
 
