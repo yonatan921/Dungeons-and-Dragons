@@ -1,8 +1,6 @@
-package Units;
-
-public abstract class Mage extends Player{
+public class Mage extends Player{
     //fields
-    protected Integer mana_pool;
+    public Integer mana_pool;
     protected Integer current_mana;
     protected Integer mana_cost;
     protected Integer spell_power;
@@ -22,5 +20,30 @@ public abstract class Mage extends Player{
     }
 
     //methods
-    protected void blizzard(){}//TODO: implement
+    public void specialAbility(){}
+
+    @Override
+    public void accept(Unit unit) {
+
+    }
+
+    @Override
+    public void processStep() {
+
+    }
+
+    @Override
+    public void onDeath() {
+
+    }
+
+    @Override
+    public void visit(Player p) {
+
+    }
+
+    @Override
+    public void visit(Enemy e) {
+
+    }
 }

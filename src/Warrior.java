@@ -1,6 +1,4 @@
-package Units;
-
-public abstract class Warrior extends Player {
+public class Warrior extends Player {
     //fields
     protected Integer ability_cooldown;
     protected Integer remaining_cooldown =0;
@@ -11,5 +9,30 @@ public abstract class Warrior extends Player {
     }
 
     //methods
-    protected void avengers_shield(){}//TODO: implement
+    public void specialAbility(){} //TODO: implement
+
+    @Override
+    public void accept(Unit unit) {
+
+    }
+
+    @Override
+    public void processStep() {
+
+    }
+
+    @Override
+    public void onDeath() {
+
+    }
+
+    @Override
+    public void visit(Player p) {
+
+    }
+
+    @Override
+    public void visit(Enemy e) {
+
+    }
 }
