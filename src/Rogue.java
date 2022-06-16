@@ -11,28 +11,28 @@ public class Rogue extends Player {
     //methods
     public void specialAbility(){}
 
-    @Override
-    public void accept(Unit unit) {
+//    @Override
+//    public void accept(Unit unit) {
+//        unit.visit(this);
+//    }
+//
+//    @Override
+//    public void processStep() {
+//
+//    }
 
-    }
+//    @Override
+//    public void onDeath() {
+//        //game over
+//    }
 
-    @Override
-    public void processStep() {
-
-    }
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void visit(Player p) {
-
-    }
-
-    @Override
-    public void visit(Enemy e) {
-
-    }
+//    @Override
+//    public void visit(Player p) {
+//        //impossible scenario
+//    }
+//
+//    @Override
+//    public void visit(Enemy e) {
+//        //start fight
+//    }
 }

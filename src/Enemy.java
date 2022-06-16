@@ -9,4 +9,23 @@ public abstract class Enemy extends Unit {
         this.experience_value = experience_value;
         this.tile = tile;
     }
+
+    @Override
+    public void visit(Player player) {
+        //start fight
+    }
+
+    public void visit(Enemy enemy) {
+        //do nothing
+    }
+
+    public void accept(Unit unit) {
+        unit.visit(this);
+    }
+
+    public void onDeath() {
+        // +xp
+        // -enemy
+        // move to its position
+    }
 }

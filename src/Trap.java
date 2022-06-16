@@ -11,29 +11,4 @@ public class Trap extends Enemy {
         this.visibility_time = visibility_time;
         this.invisibility_time = invisibility_time;
     }
-
-    @Override
-    public void accept(Unit unit) {
-
-    }
-
-    @Override
-    public void processStep() {
-
-    }
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void visit(Player p) {
-
-    }
-
-    @Override
-    public void visit(Enemy e) {
-
-    }
 }

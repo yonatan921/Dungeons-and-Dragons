@@ -8,28 +8,5 @@ public class Monster extends Enemy {
         this.vision_range = vision_range;
     }
 
-    @Override
-    public void accept(Unit unit) {
 
-    }
-
-    @Override
-    public void processStep() {
-
-    }
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void visit(Player p) {
-
-    }
-
-    @Override
-    public void visit(Enemy e) {
-
-    }
 }

@@ -10,5 +10,20 @@ public abstract class Player extends Unit {
 
     public abstract void specialAbility();
 
+    public void visit(Player player) {
+        //do nothing
+    }
 
+    public void visit(Enemy enemy){
+        //start fight
+    }
+
+    public void accept(Unit unit){
+        unit.visit(this);
+    }
+
+    public void onDeath() {
+        //game over
+        System.out.println("GAME OVER - PLAYER DIED");
+    }
 }

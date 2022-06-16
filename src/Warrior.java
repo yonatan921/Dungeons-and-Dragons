@@ -11,28 +11,4 @@ public class Warrior extends Player {
     //methods
     public void specialAbility(){} //TODO: implement
 
-    @Override
-    public void accept(Unit unit) {
-
-    }
-
-    @Override
-    public void processStep() {
-
-    }
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void visit(Player p) {
-
-    }
-
-    @Override
-    public void visit(Enemy e) {
-
-    }
 }

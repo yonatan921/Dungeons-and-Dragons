@@ -21,29 +21,4 @@ public class Mage extends Player{
 
     //methods
     public void specialAbility(){}
-
-    @Override
-    public void accept(Unit unit) {
-
-    }
-
-    @Override
-    public void processStep() {
-
-    }
-
-    @Override
-    public void onDeath() {
-
-    }
-
-    @Override
-    public void visit(Player p) {
-
-    }
-
-    @Override
-    public void visit(Enemy e) {
-
-    }
 }
