@@ -1,4 +1,6 @@
+import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 
 public class main {
     public static void main(String[] args) {
@@ -38,10 +40,18 @@ public class main {
             }
         }
 
-        GameBoard gb = new GameBoard(tiles);
+        GameBoard gb = new GameBoard(p);
 //        System.out.println(gb.toString());
 
         GameFlow gf = new GameFlow(p,gb);
         gf.startGame();
+
+//        LevelManager lm = new LevelManager();
+//        List<String> list = lm.readAllLines("D:\\POOPass3\\Dungeons-and-Dragons\\level1.txt");
+//        for(String row : list) {
+//            System.out.println(row);
+//        String str = gb.toString();
+//        System.out.println(str);
+
     }
 }

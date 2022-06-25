@@ -16,6 +16,7 @@ public abstract class Player extends Unit {
 
     public void visit(Enemy enemy){
         //start fight
+        this.battle(enemy);
     }
 
     public void accept(Unit unit){
@@ -24,6 +25,24 @@ public abstract class Player extends Unit {
 
     public void onDeath() {
         //game over
+        this.tile = 'X';
         System.out.println("GAME OVER - PLAYER DIED");
+    }
+
+    protected void battle(Enemy e){
+        int attackPoints = attack();
+        int defensePoints = e.defend();
+        if(attackPoints - defensePoints > 0) {
+            if(e.healthAmount - (attackPoints - defensePoints) < 0) {
+                Experience += e.experience_value;
+
+
+                e.onDeath();
+            } else {
+                e.healthAmount = e.healthAmount - (attackPoints - defensePoints);
+            }
+        }
+        System.out.println(this.getName() + " rolled "+ attackPoints + " attack points. " + e.getName() + " and rolled " + defensePoints + " defense points. and dealt " + (attackPoints - defensePoints) + " damage" );
+        System.out.println("BATTLE WITH ENEMY");
     }
 }

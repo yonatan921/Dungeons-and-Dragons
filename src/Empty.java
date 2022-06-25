@@ -1,7 +1,7 @@
 public class Empty extends Tile{
     //constructor
     protected Empty() {
-        super('_');
+        super('.');
     }
 
     @Override

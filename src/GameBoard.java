@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 public class GameBoard {
     public List<Tile> tiles;
     public int boardWidth;
+    LevelManager levelManager;
+    public List<Enemy> enemies;
 
-    public GameBoard(Tile[][] board){
-        tiles = new ArrayList<>();
-        for(Tile[] line : board){
-            tiles.addAll(Arrays.asList(line));
-        }
-        boardWidth = board[0].length;
+    public GameBoard(Player selected) {
+        levelManager = new LevelManager(selected);
+        this.tiles = levelManager.tiles;
+        boardWidth = levelManager.currLevelWidth;
     }
 
     public Tile get(int x, int y) throws Exception {
@@ -23,7 +23,6 @@ public class GameBoard {
             }
         }
         throw new Exception("Tile not found");// Throw an exception if no such tile.
-
     }
 
     public void remove(Enemy e) {
@@ -33,6 +32,7 @@ public class GameBoard {
         e.initialize(p);
         tiles.add(newEmpty);
     }
+
 
     @Override
     public String toString() {
@@ -53,29 +53,29 @@ public class GameBoard {
         return output;
     }
 
-    public void switchPosition(Tile tile1, Tile tile2, int shift) {
-        int t1calc = calcPosition(tile1.position.x,tile1.position.y);
-        tiles.remove(t1calc);
-        int t2calc = calcPosition(tile2.position.x,tile2.position.y);
-        tiles.remove(t2calc + shift); // -1 is specific to w,a
-        Position tmpPosition = tile1.position;
-        tile1.position = tile2.position;
-        tile2.position = tmpPosition;
-        tiles.add(tile1);
-        tiles.add(tile2);
-    }
-
-    public void replacePosition(Tile tile) {
-        tiles.remove(boardWidth * tile.position.y + tile.position.x);
-        tiles.add(tile);
-    }
+//    public void switchPosition(Tile tile1, Tile tile2, int shift) {
+//        int t1calc = calcPosition(tile1.position.x,tile1.position.y);
+//        tiles.remove(t1calc);
+//        int t2calc = calcPosition(tile2.position.x,tile2.position.y);
+//        tiles.remove(t2calc + shift); // -1 is specific to w,a
+//        Position tmpPosition = tile1.position;
+//        tile1.position = tile2.position;
+//        tile2.position = tmpPosition;
+//        tiles.add(tile1);
+//        tiles.add(tile2);
+//    }
+//
+//    public void replacePosition(Tile tile) {
+//        tiles.remove(boardWidth * tile.position.y + tile.position.x);
+//        tiles.add(tile);
+//    }
 
     public int calcPosition(int x, int y) {
         return y * boardWidth + x;
     }
 
-    public Position calcPosition(int pos) {
-        return new Position(pos % boardWidth, pos - (pos % boardWidth));
-//        return y * boardWidth + x + 1;
-    }
+//    public Position calcPosition(int pos) {
+//        return new Position(pos % boardWidth, pos - (pos % boardWidth));
+////        return y * boardWidth + x + 1;
+//    }
 }
