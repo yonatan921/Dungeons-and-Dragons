@@ -1,3 +1,3 @@
 public interface MessageCallback {
-    public void send(Message m);
+    void send(Message m);
 }

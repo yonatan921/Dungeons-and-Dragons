@@ -1,4 +1,4 @@
-public abstract class Player extends Unit {
+public abstract class Player extends Unit implements EnemyDeathCallback {
     //fields
     protected Integer Experience = 0;
     protected Integer Level = 1;
@@ -8,7 +8,9 @@ public abstract class Player extends Unit {
         super('@',name, health_pool, attack_points, defence_points); //player will always be represented with '@'
     }
 
-    public abstract void specialAbility();
+    public void specialAbility(Player player){
+        player.specialAbility(this);
+    }
 
     public void visit(Player player) {
         //do nothing
@@ -34,15 +36,35 @@ public abstract class Player extends Unit {
         int defensePoints = e.defend();
         if(attackPoints - defensePoints > 0) {
             if(e.healthAmount - (attackPoints - defensePoints) < 0) {
-                Experience += e.experience_value;
-
-
-                e.onDeath();
+                this.call(e);
             } else {
                 e.healthAmount = e.healthAmount - (attackPoints - defensePoints);
             }
         }
         System.out.println(this.getName() + " rolled "+ attackPoints + " attack points. " + e.getName() + " and rolled " + defensePoints + " defense points. and dealt " + (attackPoints - defensePoints) + " damage" );
         System.out.println("BATTLE WITH ENEMY");
+    }
+    public void call(Enemy e){
+//        e.onDeath();
+        Experience += e.experience_value;
+        if (Experience >= (Level * 50)){
+            this.levelUp();
+        }
+        this.position = e.position;
+    }
+
+    private void levelUp(){
+        Experience = Experience - (50 * Level);
+        Level += 1;
+        healthPool = healthPool + (10 * Level);
+        healthAmount = healthPool;
+        attack = attack +(4 * Level);
+        defense = defense + Level;
+        this.acceptLvlup(this);
+
+    }
+
+    protected void acceptLvlup(Player player){
+        player.acceptLvlup(this);
     }
 }

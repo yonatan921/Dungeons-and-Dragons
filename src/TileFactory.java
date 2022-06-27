@@ -17,7 +17,7 @@ public class TileFactory {
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
-                () -> new Monster('s', "Lannister Solider", 80, 8, 3,25, 3),
+                () -> new Monster('s', "Lannister Solider", 1, 8, 3,500, 3), //Todo change exp to 25 health pool to 80!!!!!
                 () -> new Monster('k', "Lannister Knight", 200, 14, 8, 50,   4),
                 () -> new Monster('q', "Queen's Guard", 400, 20, 15, 100,  5),
                 () -> new Monster('z', "Wright", 600, 30, 15,100, 3),

@@ -1,4 +1,4 @@
-public abstract class Enemy extends Unit {
+public abstract class Enemy extends Unit  {
     //fields
     protected Integer experience_value;
     protected Character tile;
@@ -25,10 +25,11 @@ public abstract class Enemy extends Unit {
     }
 
     public void onDeath() {
-        // +xp
-        // -enemy
-        // move to its position
-        System.out.println("ENEMY DIED");
+        Position enemyPosition = this.position;
+        removeFromBoard();
+        Empty empty =new Empty();
+        empty.initialize(enemyPosition);
+
     }
 
     protected void battle(Player p) {
@@ -44,4 +45,5 @@ public abstract class Enemy extends Unit {
         System.out.println(this.getName() + " attacked " + p.getName() + " and dealt it " + (attack - defense) + " points");
         System.out.println("BATTLE WITH PLAYER");
     }
+
 }

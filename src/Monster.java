@@ -8,5 +8,4 @@ public class Monster extends Enemy {
         this.vision_range = vision_range;
     }
 
-
 }

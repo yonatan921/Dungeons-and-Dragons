@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public abstract class Unit extends Tile {
+public abstract class Unit extends Tile implements MessageCallback {
 
     String name;
     int healthPool;
@@ -112,5 +112,8 @@ public abstract class Unit extends Tile {
 
     public String describe() {
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
+    }
+    public void send(Message m){
+
     }
 }

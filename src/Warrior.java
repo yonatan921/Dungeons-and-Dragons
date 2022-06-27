@@ -9,6 +9,14 @@ public class Warrior extends Player {
     }
 
     //methods
-    public void specialAbility(){} //TODO: implement
+    public void specialAbility(Player player){
 
+    } //TODO: implement
+
+    protected void acceptLvlup(Player player){
+        remaining_cooldown = 0;
+        healthPool += 5 * Level;
+        attack += 2 * Level;
+        defense += Level;
+    }
 }

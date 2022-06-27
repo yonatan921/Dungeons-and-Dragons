@@ -58,6 +58,9 @@ public class GameFlow {
                     selected.interact(newT);
                     break;
                 }
+                case 'e':{
+                    selected.specialAbility(selected);
+                }
                 default: {break;}
             }
         } while(c != 'q');

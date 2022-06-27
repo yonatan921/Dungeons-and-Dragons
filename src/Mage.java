@@ -20,5 +20,13 @@ public class Mage extends Player{
     }
 
     //methods
-    public void specialAbility(){}
+    public void specialAbility(Player player){
+
+    }
+
+    protected void acceptLvlup(Player player){
+       mana_pool += 25 * Level;
+       current_mana = Math.min(current_mana + 4/mana_pool, mana_pool);
+       spell_power += 10 * Level;
+    }
 }

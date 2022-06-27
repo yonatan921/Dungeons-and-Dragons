@@ -9,7 +9,9 @@ public class Rogue extends Player {
     }
 
     //methods
-    public void specialAbility(){}
+    public void specialAbility(Player player){
+
+    }
 
 //    @Override
 //    public void accept(Unit unit) {
@@ -35,4 +37,8 @@ public class Rogue extends Player {
 //    public void visit(Enemy e) {
 //        //start fight
 //    }
+protected void acceptLvlup(Player player){
+    current_energy = 100;
+    attack += 3 * Level;
+    }
 }

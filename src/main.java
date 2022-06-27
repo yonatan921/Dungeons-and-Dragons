@@ -8,7 +8,7 @@ public class main {
 //        int x = ran.nextInt(1);
 //        System.out.println(x);
         TileFactory tf = new TileFactory();
-        Player p = tf.listPlayers().get(0);
+        Player p = tf.listPlayers().get(4); //Arya stark
 //        System.out.println(e.describe());
 //        Tile w = new Wall();
 //        e.TMPprocessStep(w);
