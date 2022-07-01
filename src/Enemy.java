@@ -50,4 +50,6 @@ public abstract class Enemy extends Unit  {
         player.specialAbility(this);
     }
 
+    public abstract Position move(Player player);
+
 }

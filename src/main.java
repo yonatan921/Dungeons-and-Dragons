@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.logging.Level;
 
 public class main {
@@ -7,8 +8,11 @@ public class main {
 //        Random ran = new Random();
 //        int x = ran.nextInt(1);
 //        System.out.println(x);
-        TileFactory tf = new TileFactory();
-        Player p = tf.listPlayers().get(4); //Arya stark
+
+//        Player p = tf.listPlayers().get(4); //Arya stark
+//        GameBoard gb = new GameBoard();
+//        TileFactory tf = new TileFactory();
+//        Player p = tf.listPlayers().get(4); //Arya stark
 //        System.out.println(e.describe());
 //        Tile w = new Wall();
 //        e.TMPprocessStep(w);
@@ -40,10 +44,10 @@ public class main {
             }
         }
 
-        GameBoard gb = new GameBoard(p);
+
 //        System.out.println(gb.toString());
 
-        GameFlow gf = new GameFlow(p,gb);
+        GameFlow gf = new GameFlow();
         gf.startGame();
 
 //        LevelManager lm = new LevelManager();

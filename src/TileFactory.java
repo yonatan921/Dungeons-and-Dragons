@@ -8,11 +8,14 @@ import java.util.stream.Collectors;
 public class TileFactory {
     private List<Supplier<Player>> playersList;
     private Map<Character, Supplier<Enemy>> enemiesMap;
-    private Player selected;
+    GameBoard gameBoard;
+    Player selected;
 
-    public TileFactory(){
+    public TileFactory(int playerIndex){
         playersList = initPlayers();
         enemiesMap = initEnemies();
+        selected = listPlayers().get(playerIndex);
+
     }
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
@@ -82,5 +85,9 @@ public class TileFactory {
         Wall w = new Wall();
         w.initialize(position);
         return w;
+    }
+
+    public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
     }
 }

@@ -11,4 +11,9 @@ public class Trap extends Enemy {
         this.visibility_time = visibility_time;
         this.invisibility_time = invisibility_time;
     }
+
+    @Override
+    public Position move(Player player) {
+        return this.position;
+    }
 }

@@ -10,7 +10,6 @@ public class Position implements Comparable<Position> {
         this.y = y;
     }
 
-
     @Override
     public int compareTo(Position o) {
         if (y < o.y)
@@ -21,8 +20,8 @@ public class Position implements Comparable<Position> {
     }
 
     public double distance(Position position){ //Euclidean Distance
-        int x_def = this.x = position.x;
-        int y_def = this.y = position.y;
+        int x_def = this.x - position.x;
+        int y_def = this.y - position.y;
         return  Math.sqrt(Math.pow(x_def, 2) + Math.pow(y_def, 2));
     }
 
@@ -32,6 +31,19 @@ public class Position implements Comparable<Position> {
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
         return x == position.x && y == position.y;
+    }
+
+    public void moveUp(){
+        this.y = y -1 ;
+    }
+    public void moveDown(){
+        this.y =y + 1;
+    }
+    public void moveLeft(){
+        this.x = x -1 ;
+    }
+    public void moveRight(){
+        this.x = x + 1 ;
     }
 
     @Override

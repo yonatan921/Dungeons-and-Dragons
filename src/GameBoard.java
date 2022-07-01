@@ -9,8 +9,8 @@ public class GameBoard {
     LevelManager levelManager;
     public List<Enemy> enemies;
 
-    public GameBoard(Player selected) {
-        levelManager = new LevelManager(selected);
+    public GameBoard(LevelManager levelManager) {
+        this.levelManager = levelManager;
         this.tiles = levelManager.tiles;
         boardWidth = levelManager.currLevelWidth;
     }
@@ -26,8 +26,9 @@ public class GameBoard {
     }
 
     public void remove(Enemy e) {
-        tiles.remove(e);
         Position p = e.getPosition();
+        tiles.remove(e);
+        enemies.remove(e);
         Empty newEmpty = new Empty();
         e.initialize(p);
         tiles.add(newEmpty);

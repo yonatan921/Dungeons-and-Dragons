@@ -8,17 +8,17 @@ import java.util.List;
 public class LevelManager {
     int currLevel;
     int currLevelWidth;
-    List<Tile> tiles;
-    TileFactory tf;
+    public List<Tile> tiles;
+    public TileFactory tf;
     private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
-    Player selected;
-    List<Enemy> enemies;
+    public Player selected;
+    public List<Enemy> enemies;
 
-    public LevelManager(Player selected) {
+    public LevelManager(TileFactory tileFactory) {
         currLevel = 1;
-        this.tf = new TileFactory();
-        this.selected = selected; //TODO: CHANGE
+        this.tf = tileFactory;
         enemies = new ArrayList<>();
+        selected = tileFactory.selected;
         loadLevel(currLevel);
     }
 
@@ -73,4 +73,7 @@ public class LevelManager {
         return tiles;
     }
 
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
 }

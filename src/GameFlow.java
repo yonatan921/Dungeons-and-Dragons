@@ -4,14 +4,25 @@ import java.util.stream.Collectors;
 public class GameFlow {
     Player selected;
     GameBoard gameBoard;
+    TileFactory tileFactory;
+    LevelManager levelManager;
 
-    GameFlow(Player selected, GameBoard gameBoard) {
-        this.selected = selected;
-        this.gameBoard = gameBoard;
-        this.gameBoard.tiles = this.gameBoard.tiles.stream().sorted().collect(Collectors.toList());
+    GameFlow() {
+
+
     }
 
     public void startGame() {
+        Scanner scanner = new Scanner(System.in);
+        int player_index = scanner.nextInt();
+        this.tileFactory = new TileFactory(player_index);
+//        this.selected = tileFactory.listPlayers().get(player_index);
+        this.levelManager= new LevelManager(tileFactory);
+        this.selected = levelManager.selected;
+        this.gameBoard = new GameBoard(levelManager);
+
+        tileFactory.setGameBoard(gameBoard);
+        this.gameBoard.tiles = this.gameBoard.tiles.stream().sorted().collect(Collectors.toList());
         gameTick();
     }
 
@@ -59,9 +70,15 @@ public class GameFlow {
                     break;
                 }
                 case 'e':{
-                    selected.specialAbility(gameBoard.enemies);
+                    selected.specialAbility(levelManager.getEnemies());
                 }
                 default: {break;}
+                }
+                for (Enemy enemy : levelManager.getEnemies()){
+                    Position newEnemyPosition = enemy.move(selected);
+                    int calc = newEnemyPosition.y * gameBoard.boardWidth + newEnemyPosition.x;
+                    Tile newT = gameBoard.tiles.get(calc);
+                    enemy.interact(newT);
             }
         } while(c != 'q');
     }
