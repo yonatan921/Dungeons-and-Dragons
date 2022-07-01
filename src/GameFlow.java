@@ -59,7 +59,7 @@ public class GameFlow {
                     break;
                 }
                 case 'e':{
-                    selected.specialAbility(selected);
+                    selected.specialAbility(gameBoard.enemies);
                 }
                 default: {break;}
             }

@@ -46,4 +46,8 @@ public abstract class Enemy extends Unit  {
         System.out.println("BATTLE WITH PLAYER");
     }
 
+    public void specialAbility(Player player){
+        player.specialAbility(this);
+    }
+
 }

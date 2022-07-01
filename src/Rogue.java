@@ -1,7 +1,11 @@
+import java.util.List;
+
 public class Rogue extends Player {
     //fields
     protected Integer cost;
     protected Integer current_energy = 100;
+
+    private int CONST_range = 2;
 
     public Rogue(String name, Integer health_pool, Integer attack_points, Integer defence_points, Integer cost) {
         super(name, health_pool, attack_points, defence_points);
@@ -9,8 +13,20 @@ public class Rogue extends Player {
     }
 
     //methods
-    public void specialAbility(Player player){
+    public void specialAbility(Enemy enemy){
+        int attack = this.attack;
+        int defend = enemy.defend();
+        this.battle(enemy, attack, defend);
 
+    }
+    public void specialAbility(List<Enemy> enemyList){
+        if (current_energy > cost){
+            current_energy -= cost;
+            for (Enemy enemy : enemyList){
+                if (this.position.distance(enemy.position) < CONST_range)
+                    enemy.specialAbility(this);
+            }
+        }
     }
 
 //    @Override

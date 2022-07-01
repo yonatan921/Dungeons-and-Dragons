@@ -1,3 +1,5 @@
+import java.util.List;
+
 public abstract class Player extends Unit implements EnemyDeathCallback {
     //fields
     protected Integer Experience = 0;
@@ -8,9 +10,7 @@ public abstract class Player extends Unit implements EnemyDeathCallback {
         super('@',name, health_pool, attack_points, defence_points); //player will always be represented with '@'
     }
 
-    public void specialAbility(Player player){
-        player.specialAbility(this);
-    }
+    public abstract void specialAbility(List<Enemy> enemyList);
 
     public void visit(Player player) {
         //do nothing
@@ -34,15 +34,7 @@ public abstract class Player extends Unit implements EnemyDeathCallback {
     protected void battle(Enemy e){
         int attackPoints = attack();
         int defensePoints = e.defend();
-        if(attackPoints - defensePoints > 0) {
-            if(e.healthAmount - (attackPoints - defensePoints) < 0) {
-                this.call(e);
-            } else {
-                e.healthAmount = e.healthAmount - (attackPoints - defensePoints);
-            }
-        }
-        System.out.println(this.getName() + " rolled "+ attackPoints + " attack points. " + e.getName() + " and rolled " + defensePoints + " defense points. and dealt " + (attackPoints - defensePoints) + " damage" );
-        System.out.println("BATTLE WITH ENEMY");
+        this.battle(e, attackPoints, defensePoints);
     }
     public void call(Enemy e){
 //        e.onDeath();
@@ -66,5 +58,20 @@ public abstract class Player extends Unit implements EnemyDeathCallback {
 
     protected void acceptLvlup(Player player){
         player.acceptLvlup(this);
+    }
+
+    public abstract void specialAbility(Enemy enemy);
+
+    protected void battle(Enemy e, int playerAttck, int enemyDefend ){
+
+        if(playerAttck - enemyDefend > 0) {
+            if(e.healthAmount - (playerAttck - enemyDefend) < 0) {
+                this.call(e);
+            } else {
+                e.healthAmount = e.healthAmount - (playerAttck - enemyDefend);
+            }
+        }
+        System.out.println(this.getName() + " rolled "+ playerAttck + " attack points. " + e.getName() + " and rolled " + enemyDefend + " defense points. and dealt " + (playerAttck - enemyDefend) + " damage" );
+        System.out.println("BATTLE WITH ENEMY");
     }
 }

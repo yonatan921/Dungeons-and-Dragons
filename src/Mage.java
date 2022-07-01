@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Mage extends Player{
     //fields
     public Integer mana_pool;
@@ -20,8 +24,25 @@ public class Mage extends Player{
     }
 
     //methods
-    public void specialAbility(Player player){
-
+    public void specialAbility(Enemy enemy){
+        this.battle(enemy, spell_power, enemy.defend());
+    }
+    public void specialAbility(List<Enemy> enemyList){
+        if (mana_cost <= current_mana){
+            current_mana -= mana_cost;
+            int hits = 0;
+            List<Enemy> inRange = new ArrayList<>();
+            for (Enemy enemy : enemyList){
+                if (this.position.distance(enemy.position) < ability_range)
+                    inRange.add(enemy);
+            }
+            while ((hits < hits_count) && !(inRange.isEmpty())){
+                Random random = new Random();
+                Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
+                this.specialAbility(randomEnemy);
+                hits++;
+            }
+        }
     }
 
     protected void acceptLvlup(Player player){
@@ -29,4 +50,5 @@ public class Mage extends Player{
        current_mana = Math.min(current_mana + 4/mana_pool, mana_pool);
        spell_power += 10 * Level;
     }
+
 }
