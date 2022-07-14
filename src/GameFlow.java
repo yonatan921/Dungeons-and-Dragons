@@ -32,40 +32,33 @@ public class GameFlow {
         do {
             System.out.println(gameBoard);
             c = scanner.next().charAt(0); //TODO: if more than one char, keep listennign until valid input!
+            Position newPosition = new Position(selected.position.x, selected.position.y);
             switch (c) {
                 case 'w': {
-                    int newY = selected.position.y - 1;
-                    int newX = selected.position.x;
-                    int calc = newY * gameBoard.boardWidth + newX;
+                    newPosition.moveUp();
 
-                    Tile newT = gameBoard.tiles.get(calc);
+                    Tile newT = reOrganizedBoard(newPosition);
                     selected.interact(newT);
                     break;
                 }
                 case 'a': {
-                    int newY = selected.position.y;
-                    int newX = selected.position.x - 1;
-                    int calc = newY * gameBoard.boardWidth + newX;
+                    newPosition.moveLeft();
 
-                    Tile newT = gameBoard.tiles.get(calc);
+                    Tile newT = reOrganizedBoard(newPosition);
                     selected.interact(newT);
                     break;
                 }
                 case 's': {
-                    int newY = selected.position.y + 1;
-                    int newX = selected.position.x;
-                    int calc = newY * gameBoard.boardWidth + newX;
+                    newPosition.moveDown();
 
-                    Tile newT = gameBoard.tiles.get(calc);
+                    Tile newT = reOrganizedBoard(newPosition);
                     selected.interact(newT);
                     break;
                 }
                 case 'd': {
-                    int newY = selected.position.y;
-                    int newX = selected.position.x + 1;
-                    int calc = newY * gameBoard.boardWidth + newX;
+                    newPosition.moveRight();
 
-                    Tile newT = gameBoard.tiles.get(calc);
+                    Tile newT = reOrganizedBoard(newPosition);
                     selected.interact(newT);
                     break;
                 }
@@ -76,10 +69,16 @@ public class GameFlow {
                 }
                 for (Enemy enemy : levelManager.getEnemies()){
                     Position newEnemyPosition = enemy.move(selected);
-                    int calc = newEnemyPosition.y * gameBoard.boardWidth + newEnemyPosition.x;
-                    Tile newT = gameBoard.tiles.get(calc);
+                    Tile newT = reOrganizedBoard(newEnemyPosition);
                     enemy.interact(newT);
-            }
+                }
+                selected.gameTick();
+
         } while(c != 'q');
+    }
+
+    private Tile reOrganizedBoard(Position position){
+        int calc = position.y * gameBoard.boardWidth + position.x;
+        return gameBoard.tiles.get(calc);
     }
 }

@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 public class GameBoard {
     public List<Tile> tiles;
     public int boardWidth;
-    LevelManager levelManager;
-    public List<Enemy> enemies;
+    public LevelManager levelManager;
 
+//------------------TODO ------------------------------ why do we need game Board???___-----
     public GameBoard(LevelManager levelManager) {
         this.levelManager = levelManager;
         this.tiles = levelManager.tiles;
@@ -28,7 +28,7 @@ public class GameBoard {
     public void remove(Enemy e) {
         Position p = e.getPosition();
         tiles.remove(e);
-        enemies.remove(e);
+        levelManager.enemies.remove(e);
         Empty newEmpty = new Empty();
         e.initialize(p);
         tiles.add(newEmpty);

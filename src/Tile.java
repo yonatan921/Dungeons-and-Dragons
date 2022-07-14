@@ -10,6 +10,7 @@ public abstract class Tile implements Comparable<Tile>{
         this.position = position;
     }
 
+
     public char getTile() {
         return tile;
     }

@@ -56,9 +56,20 @@ public class LevelManager {
                 Tile tile;
                 switch (c) {
                     case '.': tile = tf.produceEmpty(pos); break;
-                    case '@': tile = selected; selected.initialize(new Position(x,y)); break; //TODO: CHANGE IDX
                     case '#': tile = tf.produceWall(pos); break;
-                    default: tile = tf.produceEnemy(c,pos); enemies.add((Enemy)tile);
+
+                    case '@':{
+                        Player player = tf.producePlayer(pos);
+                        tile = selected;
+                        selected.initialize(pos); break; //TODO: CHANGE IDX
+                    }
+
+                    default:{
+                        Enemy enemy = tf.produceEnemy(c,pos);
+                        tile = enemy;
+                        enemies.add(enemy);
+                    }
+
                 }
                 tiles.add(tile);
                 if(x == currLevelWidth - 1) {

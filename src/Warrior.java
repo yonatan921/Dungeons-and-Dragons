@@ -19,18 +19,28 @@ public class Warrior extends Player {
         this.battle(enemy,  healthPool / 10, 0);
     }
 
+    @Override
+    public void gameTick() {
+        if (remaining_cooldown != 0)
+            remaining_cooldown -= 1;
+    }
+
     public void specialAbility(List<Enemy> enemyList){
-        if (remaining_cooldown > 0){
+        if (remaining_cooldown == 0){
             List<Enemy> inRange = new ArrayList<>();
             for (Enemy enemy : enemyList){
                 if (this.position.distance(enemy.position) < CONST_range)
                     inRange.add(enemy);
             }
             Random random = new Random();
-            Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
-            this.specialAbility(randomEnemy);
-
+            if (!inRange.isEmpty()){
+                Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
+                this.specialAbility(randomEnemy);
+            }
+            remaining_cooldown = ability_cooldown;
+            healthAmount = Math.min(healthPool , healthAmount + 10 * defense);
         }
+        //Todo not enough resources
     }
 
     protected void acceptLvlup(Player player){

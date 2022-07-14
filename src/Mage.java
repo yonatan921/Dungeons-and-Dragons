@@ -27,6 +27,12 @@ public class Mage extends Player{
     public void specialAbility(Enemy enemy){
         this.battle(enemy, spell_power, enemy.defend());
     }
+
+    @Override
+    public void gameTick() {
+        current_mana = Math.min(mana_pool, current_mana + Level);
+    }
+
     public void specialAbility(List<Enemy> enemyList){
         if (mana_cost <= current_mana){
             current_mana -= mana_cost;
@@ -43,6 +49,7 @@ public class Mage extends Player{
                 hits++;
             }
         }
+        //Todo not enough resources
     }
 
     protected void acceptLvlup(Player player){

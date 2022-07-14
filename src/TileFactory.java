@@ -34,7 +34,6 @@ public class TileFactory {
                 () -> new Trap('Q', "Queen's Trap", 250, 50, 10, 100, 3, 7),
                 () -> new Trap('D', "Death Trap", 500, 100, 20, 250, 1, 10)
         );
-        listEnemies = enemies; //todo: delete
         return enemies.stream().collect(Collectors.toMap(s -> s.get().getTile(), Function.identity()));
     }
 
@@ -50,15 +49,10 @@ public class TileFactory {
         );
     }
 
-    List<Supplier<Enemy>> listEnemies; //todo: delete
-
     public List<Player> listPlayers(){
         return playersList.stream().map(Supplier::get).collect(Collectors.toList());
     }
-    //TODO: delete
-    public List<Enemy> listEnemies(){
-        return listEnemies.stream().map(Supplier::get).collect(Collectors.toList());
-    }
+
 
     // TODO: Add additional callbacks of your choice
 
@@ -66,14 +60,17 @@ public class TileFactory {
         Supplier<Enemy> se = enemiesMap.get(tile);
         Enemy e = se.get();
         e.initialize(position);
+        e.init(()-> gameBoard.remove(e), System.out::println);
         return e;
     }
 
-    public Player producePlayer(int idx){
-        Supplier<Player> sp = initPlayers().get(idx);
-        Player player = sp.get();
+    public Player producePlayer(Position position) {
+        Player player = selected;
+        player.initialize(position);
+        player.init(System.out::println);
         return player;
     }
+
 
     public Empty produceEmpty(Position position){
         Empty e = new Empty();

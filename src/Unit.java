@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public abstract class Unit extends Tile implements MessageCallback {
+public abstract class Unit extends Tile implements MessageCallback, DeathCallback {
 
     String name;
     int healthPool;
@@ -17,9 +17,6 @@ public abstract class Unit extends Tile implements MessageCallback {
         this.defense = defense;
     }
 
-    protected void initialize(Position position, MessageCallback messageCallback){
-
-    }
 
     protected int attack() {
         return new Random().nextInt(attack + 1); //random number [0,attack]
@@ -33,11 +30,6 @@ public abstract class Unit extends Tile implements MessageCallback {
 
     }
 
-    public void removeFromBoard() {
-
-    }
-
-
     // What happens when the unit dies
     public abstract void onDeath();
 
@@ -46,8 +38,12 @@ public abstract class Unit extends Tile implements MessageCallback {
         tile.accept(this);
     }
 
-    public abstract void visit(Player p);
-    public abstract void visit(Enemy e);
+    public  void visit(Player p){
+        this.battle(p);
+    }
+    public  void visit(Enemy e){
+        this.battle(e);
+    }
     public void visit(Wall w){
         //do nothing/game tick
     }
@@ -61,38 +57,23 @@ public abstract class Unit extends Tile implements MessageCallback {
 
     // Combat against another unit.
     protected void battle(Unit u){
-        battle(u);
+      int attack = this.attack;
+      int defend = u.defend();
+      this.battle(u, attack, defend);
     }
 
-//    protected void battle(Enemy e){
-//        int attackPoints = attack();
-//        int defensePoints = e.defend();
-//        if(attackPoints - defensePoints > 0) {
-//            if(e.healthAmount - (attackPoints - defensePoints) < 0) {
-//                this.accept(this);
-//                e.onDeath();
-//            } else {
-//                e.healthAmount = e.healthAmount - (attackPoints - defensePoints);
-//            }
-//        }
-//        System.out.println(this.getName() + " rolled "+ attackPoints + " attack points. " + e.getName() + " and rolled " + defensePoints + " defense points. and dealt " + (attackPoints - defensePoints) + " damage" );
-//        System.out.println("BATTLE WITH ENEMY");
-//    }
+    protected void battle(Unit u, int attack, int defend){
+        if(attack - defend > 0) {
+            if(u.healthAmount - (attack - defend) < 0) {
+                u.onDeath();
+                this.levelUp();
+            } else {
+                u.healthAmount = u.healthAmount - (attack - defend);
+            }
+        }
+    }
 
 
-//    protected void battle(Player p){
-//        int attack = attack();
-//        int defense = p.defend();
-//        if(attack - defense > 0) {
-//            if(p.defense - (attack - defense) < 0) {
-//                p.onDeath();
-//            } else {
-//               p.defense = p.defense - (attack - defense);
-//            }
-//        }
-//        System.out.println(this.getName() + " attacked " + p.getName() + " and dealt it " + (attack - defense) + " points" );
-//        System.out.println("BATTLE WITH PLAYER");
-//    }
 
     public String getName() {
         return name;
@@ -116,4 +97,7 @@ public abstract class Unit extends Tile implements MessageCallback {
     public void send(Message m){
 
     }
+
+    public abstract void levelUp();
+
 }
