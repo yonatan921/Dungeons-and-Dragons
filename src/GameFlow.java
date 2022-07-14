@@ -13,8 +13,7 @@ public class GameFlow {
     }
 
     public void startGame() {
-        Scanner scanner = new Scanner(System.in);
-        int player_index = scanner.nextInt();
+        int player_index = selectPlayer();
         this.tileFactory = new TileFactory(player_index);
 //        this.selected = tileFactory.listPlayers().get(player_index);
         this.levelManager= new LevelManager(tileFactory);
@@ -80,5 +79,18 @@ public class GameFlow {
     private Tile reOrganizedBoard(Position position){
         int calc = position.y * gameBoard.boardWidth + position.x;
         return gameBoard.tiles.get(calc);
+    }
+
+    private int selectPlayer() {
+        int chosen;
+        while (true){
+            System.out.println("Please insert number between 0-5");
+            Scanner scanner = new Scanner(System.in);
+            if (scanner.hasNextInt()){
+                chosen = scanner.nextInt();
+                if (chosen >= 0 && chosen <=5 )
+                    return chosen;
+            }
+        }
     }
 }

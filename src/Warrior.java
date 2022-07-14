@@ -40,7 +40,8 @@ public class Warrior extends Player {
             remaining_cooldown = ability_cooldown;
             healthAmount = Math.min(healthPool , healthAmount + 10 * defense);
         }
-        //Todo not enough resources
+        else
+            this.messageCallback.send(new Message(this.name + " has cooldown"));
     }
 
     protected void acceptLvlup(Player player){

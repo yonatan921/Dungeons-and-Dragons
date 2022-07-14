@@ -49,7 +49,8 @@ public class Mage extends Player{
                 hits++;
             }
         }
-        //Todo not enough resources
+        else
+            this.messageCallback.send(new Message(this.name + " has not enough mana"));
     }
 
     protected void acceptLvlup(Player player){

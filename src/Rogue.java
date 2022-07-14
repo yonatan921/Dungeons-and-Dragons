@@ -34,7 +34,8 @@ public class Rogue extends Player {
 
             }
         }
-        //Todo not enough resources
+        else
+            this.messageCallback.send(new Message(this.name + " has not enough energy"));
     }
 
 //    @Override

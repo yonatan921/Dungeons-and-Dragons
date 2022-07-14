@@ -27,7 +27,7 @@ public abstract class Enemy extends Unit {
 
     public void onDeath() {
         dcb.onDeath();
-        mcb.send(new Message(this.name + "died"));
+        mcb.send(new Message(this.name + " died"));
     }
 
     public void specialAbility(Player player){
