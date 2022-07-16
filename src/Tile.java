@@ -1,6 +1,6 @@
 public abstract class Tile implements Comparable<Tile>{
-    protected char tile;
-    protected Position position;
+    private char tile;
+    private Position position;
 
     protected Tile(char tile){
         this.tile = tile;
@@ -33,5 +33,9 @@ public abstract class Tile implements Comparable<Tile>{
     @Override
     public String toString() {
         return String.valueOf(tile);
+    }
+
+    public void setTile(char tile) {
+        this.tile = tile;
     }
 }

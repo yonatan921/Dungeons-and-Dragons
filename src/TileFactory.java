@@ -6,21 +6,21 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TileFactory {
-    private List<Supplier<Player>> playersList;
-    private Map<Character, Supplier<Enemy>> enemiesMap;
+    private final List<Supplier<Player>> playersList;
+    private final Map<Character, Supplier<Enemy>> enemiesMap;
     GameBoard gameBoard;
     Player selected;
 
-    public TileFactory(int playerIndex){
+    public TileFactory(){
         playersList = initPlayers();
         enemiesMap = initEnemies();
-        selected = listPlayers().get(playerIndex);
+
 
     }
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
-                () -> new Monster('s', "Lannister Solider", 1, 8, 3,500, 3), //Todo change exp to 25 health pool to 80!!!!!
+                () -> new Monster('s', "Lannister Solider", 80, 8, 3,25, 3),
                 () -> new Monster('k', "Lannister Knight", 200, 14, 8, 50,   4),
                 () -> new Monster('q', "Queen's Guard", 400, 20, 15, 100,  5),
                 () -> new Monster('z', "Wright", 600, 30, 15,100, 3),

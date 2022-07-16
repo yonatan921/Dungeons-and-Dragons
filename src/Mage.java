@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class Mage extends Player{
     //fields
-    public Integer mana_pool;
-    protected Integer current_mana;
-    protected Integer mana_cost;
-    protected Integer spell_power;
-    protected Integer hits_count;
-    protected Integer ability_range;
+    private Integer mana_pool;
+    private Integer current_mana;
+    private final Integer mana_cost;
+    private Integer spell_power;
+    private final Integer hits_count;
+    private final Integer ability_range;
 
     //constructors
     public Mage(String name, Integer health_pool, Integer attack_points, Integer defence_points, Integer mana_pool,
@@ -25,24 +25,24 @@ public class Mage extends Player{
 
     //methods
     public void specialAbility(Enemy enemy){
-        this.battle(enemy, spell_power, enemy.defend());
+        this.battle(enemy, getSpell_power(), enemy.defend());
     }
 
     @Override
     public void gameTick() {
-        current_mana = Math.min(mana_pool, current_mana + Level);
+        setCurrent_mana(Math.min(getMana_pool(), getCurrent_mana() + getLevel()));
     }
 
     public void specialAbility(List<Enemy> enemyList){
-        if (mana_cost <= current_mana){
-            current_mana -= mana_cost;
+        if (getMana_cost() <= getCurrent_mana()){
+            setCurrent_mana(getMana_pool() - getMana_cost());
             int hits = 0;
             List<Enemy> inRange = new ArrayList<>();
             for (Enemy enemy : enemyList){
-                if (this.position.distance(enemy.position) < ability_range)
+                if (getPosition().distance(enemy.getPosition()) < getAbility_range())
                     inRange.add(enemy);
             }
-            while ((hits < hits_count) && !(inRange.isEmpty())){
+            while ((hits < getHits_count()) && !(inRange.isEmpty())){
                 Random random = new Random();
                 Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
                 this.specialAbility(randomEnemy);
@@ -50,13 +50,55 @@ public class Mage extends Player{
             }
         }
         else
-            this.messageCallback.send(new Message(this.name + " has not enough mana"));
+            this.send(new Message(this.getName() + " has not enough mana"));
     }
 
-    protected void acceptLvlup(Player player){
-       mana_pool += 25 * Level;
-       current_mana = Math.min(current_mana + 4/mana_pool, mana_pool);
-       spell_power += 10 * Level;
+    protected void acceptLvlUp(Player player){
+       setMana_pool(getMana_pool() + (25 * getLevel()));
+       setCurrent_mana(Math.min(getCurrent_mana() + 4/getMana_pool(), getMana_pool()));
+       setSpell_power(getSpell_power() + (10 * getLevel()));
+        send(new Message(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense, +%d Maximum mana, +%d Spell power",
+                getName(), getLevel(), 10 * getLevel(), 4 *getLevel(), getLevel(), 25 * getLevel(), 10 * getLevel())));
+    }
+    public String describe(){
+        return String.format("%s        Health: %d/%d       Attack: %d      Defense: %d     Level: %d\n     Experience: %d/%d       Mana: %d/%d     Spell Power: %d",
+                getName(), getHealthAmount(), getHealthPool(), getAttack(), getDefense(), getLevel(), getExperience(), getLevel() * 50,
+                getCurrent_mana(), getMana_pool(), getSpell_power());
     }
 
+    public Integer getMana_pool() {
+        return mana_pool;
+    }
+
+    public Integer getMana_cost() {
+        return mana_cost;
+    }
+
+    public Integer getCurrent_mana() {
+        return current_mana;
+    }
+
+    public Integer getSpell_power() {
+        return spell_power;
+    }
+
+    public Integer getHits_count() {
+        return hits_count;
+    }
+
+    public Integer getAbility_range() {
+        return ability_range;
+    }
+
+    public void setMana_pool(Integer mana_pool) {
+        this.mana_pool = mana_pool;
+    }
+
+    public void setCurrent_mana(Integer current_mana) {
+        this.current_mana = current_mana;
+    }
+
+    public void setSpell_power(Integer spell_power) {
+        this.spell_power = spell_power;
+    }
 }

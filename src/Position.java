@@ -2,8 +2,8 @@ import java.util.Objects;
 
 public class Position implements Comparable<Position> {
     //fields
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
     public Position(int x,int y){
         this.x = x;
@@ -34,20 +34,31 @@ public class Position implements Comparable<Position> {
     }
 
     public void moveUp(){
-        this.y = y -1 ;
+        setY(getY() -1);
     }
     public void moveDown(){
-        this.y =y + 1;
+        setY(getY()+1);
     }
     public void moveLeft(){
-        this.x = x -1 ;
+        setX(getX() - 1);
     }
     public void moveRight(){
-        this.x = x + 1 ;
+        setX(getX() + 1);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(x, y);
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }

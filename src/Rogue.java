@@ -2,8 +2,8 @@ import java.util.List;
 
 public class Rogue extends Player {
     //fields
-    protected Integer cost;
-    protected Integer current_energy = 100;
+    private final Integer cost;
+    private Integer current_energy = 100;
 
     private final int CONST_range = 2;
 
@@ -14,7 +14,7 @@ public class Rogue extends Player {
 
     //methods
     public void specialAbility(Enemy enemy){
-        int attack = this.attack;
+        int attack = this.getAttack();
         int defend = enemy.defend();
         this.battle(enemy, attack, defend);
 
@@ -22,48 +22,46 @@ public class Rogue extends Player {
 
     @Override
     public void gameTick() {
-        current_energy = Math.min(current_energy +10, 100);
+        setCurrent_energy(Math.min(getCurrent_energy() +10, 100));
     }
 
     public void specialAbility(List<Enemy> enemyList){
-        if (current_energy > cost){
-            current_energy -= cost;
+        if (getCurrent_energy() > getCost()){
+            setCurrent_energy(getCurrent_energy() - getCost());
             for (Enemy enemy : enemyList){
-                if (this.position.distance(enemy.position) < CONST_range)
+                if (this.getPosition().distance(enemy.getPosition()) < getRange())
                     enemy.specialAbility(this);
-
             }
         }
         else
-            this.messageCallback.send(new Message(this.name + " has not enough energy"));
+            this.send(new Message(this.getName() + " has not enough energy"));
     }
 
-//    @Override
-//    public void accept(Unit unit) {
-//        unit.visit(this);
-//    }
-//
-//    @Override
-//    public void processStep() {
-//
-//    }
+    protected void acceptLvlUp(Player player){
+        setCurrent_energy(100);
+        setAttack(getAttack() + (3 * getLevel()));
+        send(new Message(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",
+                getName(), getLevel(), 10 * getLevel(), 7 *getLevel(), getLevel())));
+    }
+    public String describe(){
+        return String.format("%s        Health: %d/%d       Attack: %d      Defense: %d     Level: %d\n     Experience: %d/%d       Energy: %d/%d",
+                getName(), getHealthAmount(), getHealthPool(), getAttack(), getDefense(), getLevel(), getExperience(),
+                getLevel() * 50, getCurrent_energy(), 100);
+    }
 
-//    @Override
-//    public void onDeath() {
-//        //game over
-//    }
+    public Integer getCurrent_energy() {
+        return current_energy;
+    }
 
-//    @Override
-//    public void visit(Player p) {
-//        //impossible scenario
-//    }
-//
-//    @Override
-//    public void visit(Enemy e) {
-//        //start fight
-//    }
-protected void acceptLvlup(Player player){
-    current_energy = 100;
-    attack += 3 * Level;
+    public void setCurrent_energy(Integer current_energy) {
+        this.current_energy = current_energy;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
+    public int getRange() {
+        return CONST_range;
     }
 }

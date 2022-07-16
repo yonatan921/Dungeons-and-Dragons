@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Monster extends Enemy {
     //fields
-    protected Integer vision_range;
+    private final Integer vision_range;
 
     public Monster(Character tile ,String name, Integer health_pool, Integer attack_points, Integer defence_points,  Integer experience_value ,
                    Integer vision_range) {
@@ -12,10 +12,10 @@ public class Monster extends Enemy {
 
     @Override
     public Position move(Player player) {
-        Position newPosition = new Position(this.position.x, this.position.y);
-        if (this.position.distance(player.position) < vision_range){
-            int x = newPosition.x - player.position.x;
-            int y = newPosition.y - player.position.y;
+        Position newPosition = new Position(this.getPosition().getX(), this.getPosition().getY());
+        if (getPosition().distance(player.getPosition()) < getVision_range()){
+            int x = newPosition.getX() - player.getPosition().getX();
+            int y = newPosition.getY() - player.getPosition().getY();
             if (Math.abs(x) > Math.abs(y)){
                 if (x > 0)
                     newPosition.moveLeft();
@@ -43,4 +43,19 @@ public class Monster extends Enemy {
         }
         return newPosition;
     }
+
+    @Override
+    public void gameTick(Player player) {
+
+    }
+
+    public Integer getVision_range() {
+        return vision_range;
+    }
+
+    public String describe(){
+        return String.format("%s        Health: %d/%d       Attack: %d      Defense: %d     Experience Value: %d        Vision Range: %d ",
+                getName(), getHealthAmount(), getHealthPool(), getAttack(), getDefense(), getExperience_value(), getVision_range());
+    }
+
 }

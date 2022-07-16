@@ -2,17 +2,17 @@ import java.util.List;
 
 public abstract class Player extends Unit {
     //fields
-    protected Integer Experience = 0;
-    protected Integer Level = 1;
 
-    public MessageCallback messageCallback;
+    private Integer Level = 1;
 
+    private Integer Experience = 0;
     //constructor
-    public Player(String name, Integer health_pool, Integer attack_points, Integer defence_points){
-        super('@',name, health_pool, attack_points, defence_points); //player will always be represented with '@'
+    public Player(String name, Integer health_pool, Integer attack_points, Integer defence_points) {
+        super('@', name, health_pool, attack_points, defence_points); //player will always be represented with '@'
     }
-    protected  void init(MessageCallback messageCallback){
-        this.messageCallback = messageCallback;
+
+    public void init(MessageCallback messageCallback) {
+        super.messageCallback = messageCallback;
     }
 
     public abstract void specialAbility(List<Enemy> enemyList);
@@ -21,65 +21,56 @@ public abstract class Player extends Unit {
         //do nothing
     }
 
-    public void visit(Enemy enemy){
+    public void visit(Enemy enemy) {
         //start fight
         this.battle(enemy);
     }
 
-    public void accept(Unit unit){
+    public void accept(Unit unit) {
         unit.visit(this);
     }
 
     public void onDeath() {
         //game over
-        this.tile = 'X';
-        System.out.println("GAME OVER - PLAYER DIED");
+        setTile('X');
+        this.send(new Message("GAME OVER - PLAYER DIED"));
     }
 
-//    protected void battle(Enemy e){
-//        int attackPoints = attack();
-//        int defensePoints = e.defend();
-//        this.battle(e, attackPoints, defensePoints);
-//    }
-//    public void onDeath(Enemy e){
-////        e.onDeath();
-//        Experience += e.experience_value;
-//        if (Experience >= (Level * 50)){
-//            this.levelUp();
-//        }
-//        this.position = e.position; //TODO change
-//    }
 
-    public void levelUp(){
-        Experience = Experience - (50 * Level);
-        Level += 1;
-        healthPool = healthPool + (10 * Level);
-        healthAmount = healthPool;
-        attack = attack +(4 * Level);
-        defense = defense + Level;
-        this.acceptLvlup(this);
-
+    public void levelUp() {
+        while (getExperience() >= 50 * getLevel()){
+            setExperience(getExperience() - (50 * getLevel()));
+            setLevel(getLevel() + 1);
+            setHealthPool(getHealthPool() + (10 * getLevel()));
+            setHealthAmount(getHealthPool());
+            setAttack(getAttack() + (4 * getLevel()));
+            setDefense(getDefense() + getLevel());
+            this.acceptLvlUp(this);
+        }
     }
-
-    protected void acceptLvlup(Player player){
-        player.acceptLvlup(this);
+    protected void acceptLvlUp(Player player) {
+        player.acceptLvlUp(this);
     }
-
     public abstract void specialAbility(Enemy enemy);
-
     public abstract void gameTick();
+    public Integer getLevel() {
+        return Level;
+    }
+    public void setLevel(Integer level) {
+        Level = level;
+    }
+    public  void setExperience(Unit unit){
+        unit.acceptEXP(this);
+    }
+    public Integer getExperience() {
+        return Experience;
+    }
+    public void setExperience(Integer experience) {
+        Experience = experience;
+    }
+    public  void acceptEXP(Player player){
 
-//    protected void battle(Enemy e, int playerAttck, int enemyDefend ){
-//
-//        if(playerAttck - enemyDefend > 0) {
-//            if(e.healthAmount - (playerAttck - enemyDefend) < 0) {
-//                e.healthAmount = 0; //Todo :just dont know :(
-//                this.onDeath(e);
-//            } else {
-//                e.healthAmount = e.healthAmount - (playerAttck - enemyDefend);
-//            }
-//        }
-//        System.out.println(this.getName() + " rolled "+ playerAttck + " attack points. " + e.getName() + " and rolled " + enemyDefend + " defense points. and dealt " + (playerAttck - enemyDefend) + " damage" );
-//        System.out.println("BATTLE WITH ENEMY");
-//    }
+    }
+
 }
+

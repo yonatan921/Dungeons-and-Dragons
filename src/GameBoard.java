@@ -27,11 +27,13 @@ public class GameBoard {
 
     public void remove(Enemy e) {
         Position p = e.getPosition();
+        int t = tiles.indexOf(e);
         tiles.remove(e);
         levelManager.enemies.remove(e);
         Empty newEmpty = new Empty();
-        e.initialize(p);
+        newEmpty.initialize(p);
         tiles.add(newEmpty);
+        int w = tiles.indexOf(newEmpty);
     }
 
 
