@@ -10,7 +10,7 @@ public class LevelManager {
     int currLevelWidth;
     public List<Tile> tiles;
     public TileFactory tf;
-    private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
+    private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons\\levels_dir"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
     public Player selected;
     public List<Enemy> enemies;
 
@@ -34,7 +34,7 @@ public class LevelManager {
         }
     }
 
-    public List<String> readAllLines(String path) {
+    private List<String> readAllLines(String path) {
         List<String> lines = Collections.emptyList();
         try {
             lines = Files.readAllLines(Paths.get(path));
@@ -45,7 +45,7 @@ public class LevelManager {
         return lines;
     }
 
-    public List<Tile> convertReadLinesToTiles(List<String> readLines) {
+    private List<Tile> convertReadLinesToTiles(List<String> readLines) {
         List<Tile> tiles = new ArrayList<>();
         int x = 0; // x position
         int y = 0; // y position

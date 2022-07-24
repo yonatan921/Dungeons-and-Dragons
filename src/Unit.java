@@ -77,10 +77,6 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
         return name;
     }
 
-    public int getHealth() {
-        return healthAmount;
-    }
-
     public int getAttack() {
         return attack;
     }

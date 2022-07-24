@@ -6,10 +6,7 @@ public class GameFlow {
     GameBoard gameBoard;
     TileFactory tileFactory;
     LevelManager levelManager;
-
     GameFlow() {
-
-
     }
 
     public void startGame() {
@@ -42,6 +39,7 @@ public class GameFlow {
 
                     Tile newT = reOrganizedBoard(newPosition);
                     selected.interact(newT);
+                    System.out.println(gameBoard.tiles.indexOf(selected));
                     break;
                 }
                 case 'a': {
