@@ -58,6 +58,8 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
 
     protected void battle(Unit u, int attack, int defend){
         send(new Message(String.format("%s engaged in combat with %s.",this.getName(), u.getName())));
+        send(new Message(this.describe()));
+        send(new Message(u.describe()));
         send(new Message(String.format("%s rolled %d attack points.",this.getName(), attack)));
         send(new Message(String.format("%s rolled %d defense points.",u.getName(), defend)));
         if(attack - defend > 0) {
@@ -70,7 +72,7 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
                 u.setHealthAmount(u.getHealthAmount() - (attack - defend));
             }
         }
-        send(new Message(String.format("%s dealt 0 damage to %s.",this.getName(), u.getName())));
+//        send(new Message(String.format("%s dealt 0 damage to %s.",this.getName(), u.getName())));
     }
 
     public String getName() {

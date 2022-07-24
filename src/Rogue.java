@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Rogue extends Player {
@@ -13,7 +16,7 @@ public class Rogue extends Player {
     }
 
     //methods
-    public void specialAbility(Enemy enemy){
+    public void castAbility(Enemy enemy){
         int attack = this.getAttack();
         int defend = enemy.defend();
         this.battle(enemy, attack, defend);
@@ -25,10 +28,12 @@ public class Rogue extends Player {
         setCurrent_energy(Math.min(getCurrent_energy() +10, 100));
     }
 
-    public void specialAbility(List<Enemy> enemyList){
+    public void castAbility(List<Enemy> enemyList){
+        List<Enemy> enemiesClone = new ArrayList<>(enemyList);
+
         if (getCurrent_energy() > getCost()){
             setCurrent_energy(getCurrent_energy() - getCost());
-            for (Enemy enemy : enemyList){
+            for (Enemy enemy : enemiesClone){
                 if (this.getPosition().distance(enemy.getPosition()) < getRange())
                     enemy.specialAbility(this);
             }

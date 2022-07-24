@@ -15,7 +15,7 @@ public abstract class Player extends Unit {
         super.messageCallback = messageCallback;
     }
 
-    public abstract void specialAbility(List<Enemy> enemyList);
+    public abstract void castAbility(List<Enemy> enemyList);
 
     public void visit(Player player) {
         //do nothing
@@ -33,6 +33,7 @@ public abstract class Player extends Unit {
     public void onDeath() {
         //game over
         setTile('X');
+        this.setHealthAmount(0);
         this.send(new Message("GAME OVER - PLAYER DIED"));
     }
 
@@ -51,7 +52,7 @@ public abstract class Player extends Unit {
     protected void acceptLvlUp(Player player) {
         player.acceptLvlUp(this);
     }
-    public abstract void specialAbility(Enemy enemy);
+    public abstract void castAbility(Enemy enemy);
     public abstract void gameTick();
     public Integer getLevel() {
         return Level;

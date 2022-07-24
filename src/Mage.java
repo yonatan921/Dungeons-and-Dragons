@@ -24,7 +24,7 @@ public class Mage extends Player{
     }
 
     //methods
-    public void specialAbility(Enemy enemy){
+    public void castAbility(Enemy enemy){
         this.battle(enemy, getSpell_power(), enemy.defend());
     }
 
@@ -33,7 +33,7 @@ public class Mage extends Player{
         setCurrent_mana(Math.min(getMana_pool(), getCurrent_mana() + getLevel()));
     }
 
-    public void specialAbility(List<Enemy> enemyList){
+    public void castAbility(List<Enemy> enemyList){
         if (getMana_cost() <= getCurrent_mana()){
             setCurrent_mana(getMana_pool() - getMana_cost());
             int hits = 0;
@@ -45,8 +45,11 @@ public class Mage extends Player{
             while ((hits < getHits_count()) && !(inRange.isEmpty())){
                 Random random = new Random();
                 Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
-                this.specialAbility(randomEnemy);
+                this.castAbility(randomEnemy);
                 hits++;
+                if (randomEnemy.getHealthAmount() == 0) // todo const death value
+                    inRange.remove(randomEnemy);
+
             }
         }
         else

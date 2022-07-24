@@ -15,7 +15,7 @@ public class Warrior extends Player {
     }
 
     //methods
-    public void specialAbility(Enemy enemy){
+    public void castAbility(Enemy enemy){
         this.battle(enemy,  getHealthPool() / 10, 0);
     }
 
@@ -25,7 +25,7 @@ public class Warrior extends Player {
             setRemaining_cooldown(getRemaining_cooldown() - 1);
     }
 
-    public void specialAbility(List<Enemy> enemyList){
+    public void castAbility(List<Enemy> enemyList){
         if (getRemaining_cooldown() == 0){
             List<Enemy> inRange = new ArrayList<>();
             for (Enemy enemy : enemyList){
@@ -35,7 +35,7 @@ public class Warrior extends Player {
             Random random = new Random();
             if (!inRange.isEmpty()){
                 Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
-                this.specialAbility(randomEnemy);
+                this.castAbility(randomEnemy);
             }
             setRemaining_cooldown(getAbility_cooldown());
             setHealthAmount(Math.min(getHealthPool() , getHealthAmount() + 10 * getDefense()));

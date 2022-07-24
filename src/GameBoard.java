@@ -56,6 +56,12 @@ public class GameBoard {
         return output;
     }
 
+    public void advanceLevel(){
+        levelManager.advanceLevel();
+        this.tiles = levelManager.tiles;
+        this.boardWidth = levelManager.currLevelWidth;
+    }
+
 //    public void switchPosition(Tile tile1, Tile tile2, int shift) {
 //        int t1calc = calcPosition(tile1.position.x,tile1.position.y);
 //        tiles.remove(t1calc);

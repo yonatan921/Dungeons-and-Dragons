@@ -14,12 +14,15 @@ public class LevelManager {
     public Player selected;
     public List<Enemy> enemies;
 
+    public boolean won = false;
+
     public LevelManager(TileFactory tileFactory) {
         currLevel = 1;
         this.tf = tileFactory;
         enemies = new ArrayList<>();
         selected = tileFactory.selected;
         loadLevel(currLevel);
+
     }
 
     private void loadLevel(int currLevel) {
@@ -30,8 +33,11 @@ public class LevelManager {
 
     public void advanceLevel() {
         if(currLevel < 4) {
-            loadLevel(currLevel + 1);
+            currLevel++;
+            loadLevel(currLevel );
         }
+        else
+            won = true;
     }
 
     private List<String> readAllLines(String path) {

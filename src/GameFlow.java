@@ -27,61 +27,64 @@ public class GameFlow {
         System.out.println("You have selected:");
         System.out.println(selected.getName());
         Scanner scanner = new Scanner(System.in);
+        System.out.println(gameBoard);
         char c;
         do {
-            System.out.println(gameBoard);
+
             System.out.println(selected.describe());
             c = scanner.next().charAt(0); //TODO: if more than one char, keep listennign until valid input!
             Position newPosition = new Position(selected.getPosition().getX(), selected.getPosition().getY());
             switch (c) {
                 case 'w': {
                     newPosition.moveUp();
-
-                    Tile newT = reOrganizedBoard(newPosition);
-                    selected.interact(newT);
-                    System.out.println(gameBoard.tiles.indexOf(selected));
+                    playerTick(newPosition);
                     break;
                 }
                 case 'a': {
                     newPosition.moveLeft();
-
-                    Tile newT = reOrganizedBoard(newPosition);
-                    selected.interact(newT);
+                    playerTick(newPosition);
                     break;
                 }
                 case 's': {
                     newPosition.moveDown();
-
-                    Tile newT = reOrganizedBoard(newPosition);
-                    selected.interact(newT);
+                    playerTick(newPosition);
                     break;
                 }
                 case 'd': {
                     newPosition.moveRight();
-
-                    Tile newT = reOrganizedBoard(newPosition);
-                    selected.interact(newT);
+                    playerTick(newPosition);
                     break;
                 }
                 case 'e':{
-                    selected.specialAbility(levelManager.getEnemies());
+                    selected.castAbility(levelManager.getEnemies());
                 }
                 default: {break;}
                 }
+                gameBoard.tiles = gameBoard.tiles.stream().sorted().collect(Collectors.toList()); // Todo crete function
                 for (Enemy enemy : levelManager.getEnemies()){
                     enemy.gameTick(selected);
                     Position newEnemyPosition = enemy.move(selected);
                     Tile newT = reOrganizedBoard(newEnemyPosition);
                     enemy.interact(newT);
                 }
-                selected.gameTick();
+                if (levelManager.getEnemies().size() == 0)
+                    gameBoard.advanceLevel();
 
-        } while(c != 'p');
+                System.out.println(gameBoard);
+        } while(!(selected.getHealthAmount() == 0 || levelManager.won) );
+            if (levelManager.won)
+                System.out.println("You WON!!!");
     }
 
     private Tile reOrganizedBoard(Position position){
         int calc = position.getY() * gameBoard.boardWidth + position.getX();
         return gameBoard.tiles.get(calc);
+    }
+
+    private void playerTick(Position newPosition){
+        Tile newT = reOrganizedBoard(newPosition);
+        selected.interact(newT);
+        selected.gameTick();
     }
 
     private int selectPlayer() {
