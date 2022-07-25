@@ -10,7 +10,8 @@ public class LevelManager {
     int currLevelWidth;
     public List<Tile> tiles;
     public TileFactory tf;
-    private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons\\levels_dir"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
+//    private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons\\levels_dir"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
+    private static final String path = "D:\\POOPass3\\new\\levels_dir";
     public Player selected;
     public List<Enemy> enemies;
 

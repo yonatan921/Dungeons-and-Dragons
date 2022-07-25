@@ -38,6 +38,8 @@ public class GameBoard {
         newEmpty.initialize(p);
         tiles.add(newEmpty);
         int w = tiles.indexOf(newEmpty);
+//        if(levelManager.selected.getPosition().distance(newEmpty.getPosition()) == 1)
+//            levelManager.selected.interact(newEmpty);
     }
 
 

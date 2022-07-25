@@ -54,6 +54,7 @@ public class TileFactory {
     public List<Player> listPlayers(){
         return playersList.stream().map(Supplier::get).collect(Collectors.toList());
     }
+
     public Enemy produceEnemy(char tile, Position position) {
         Supplier<Enemy> se = enemiesMap.get(tile);
         Enemy e = se.get();

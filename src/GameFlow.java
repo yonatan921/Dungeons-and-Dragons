@@ -80,7 +80,11 @@ public class GameFlow {
 
     private void playerTick(Position newPosition){
         Tile newT = tileInPosition(newPosition);
+        int enemiesSize = levelManager.getEnemies().size();
         selected.interact(newT);
+        gameBoard.sortTiles();
+        if(levelManager.getEnemies().size() < enemiesSize)
+            selected.interact(tileInPosition(newPosition));
         selected.gameTick();
     }
 
