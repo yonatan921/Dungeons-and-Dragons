@@ -1,6 +1,7 @@
 import java.util.Random;
 
 public abstract class Unit extends Tile implements MessageCallback, DeathCallback {
+
     //fields
     private final String name;
     private int healthPool;
