@@ -25,6 +25,10 @@ public class GameBoard {
         throw new Exception("Tile not found");// Throw an exception if no such tile.
     }
 
+    public void sortTiles(){
+        tiles = tiles.stream().sorted().collect(Collectors.toList());
+    }
+
     public void remove(Enemy e) {
         Position p = e.getPosition();
         int t = tiles.indexOf(e);

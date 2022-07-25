@@ -2,10 +2,9 @@ import java.util.List;
 
 public abstract class Player extends Unit {
     //fields
-
     private Integer Level = 1;
-
     private Integer Experience = 0;
+
     //constructor
     public Player(String name, Integer health_pool, Integer attack_points, Integer defence_points) {
         super('@', name, health_pool, attack_points, defence_points); //player will always be represented with '@'
@@ -15,14 +14,12 @@ public abstract class Player extends Unit {
         super.messageCallback = messageCallback;
     }
 
+    //methods
     public abstract void castAbility(List<Enemy> enemyList);
-
     public void visit(Player player) {
         //do nothing
     }
-
     public void visit(Enemy enemy) {
-        //start fight
         this.battle(enemy);
     }
 

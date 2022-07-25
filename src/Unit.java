@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public abstract class Unit extends Tile implements MessageCallback, DeathCallback {
-
+    //fields
     private final String name;
     private int healthPool;
     private int healthAmount;
@@ -9,6 +9,7 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
     private int defense;
     protected MessageCallback messageCallback;
 
+    //constructors
     protected Unit(char tile, String name, int healthCapacity, int attack, int defense) {
         super(tile);
         this.name = name;
@@ -18,6 +19,7 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
         this.defense = defense;
     }
 
+    //fields
     protected int attack() {
         return new Random().nextInt(attack + 1); //random number [0,attack]
     }
@@ -35,15 +37,15 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
 
     public  void visit(Player p){
         this.battle(p);
-    }
+    } // enemy engage player
     public  void visit(Enemy e){
         this.battle(e);
-    }
+    } // player engage enemy
     public void visit(Wall w){
-        //do nothing/game tick
-    }
+
+    } //do nothing
     public void visit(Empty e){
-        //move to e
+        //swap positions with empty
         Position tmpPos = this.getPosition();
         this.setPosition(e.getPosition());
         e.setPosition(tmpPos);
@@ -64,15 +66,16 @@ public abstract class Unit extends Tile implements MessageCallback, DeathCallbac
         send(new Message(String.format("%s rolled %d defense points.",u.getName(), defend)));
         if(attack - defend > 0) {
             send(new Message(String.format("%s dealt %d damage to %s.",this.getName(),attack - defend, u.getName())));
-            if(u.getHealthAmount() - (attack - defend) < 0) {
-                u.onDeath();
-                this.setExperience(u);
-                this.levelUp();
+            if(u.getHealthAmount() - (attack - defend) < 0) { // check if unit died
+                u.onDeath(); //remove unit
+                this.setExperience(u); // add exp
+                this.levelUp(); // level up
             } else {
                 u.setHealthAmount(u.getHealthAmount() - (attack - defend));
             }
         }
-//        send(new Message(String.format("%s dealt 0 damage to %s.",this.getName(), u.getName())));
+        else
+            send(new Message(String.format("%s dealt 0 damage to %s.",this.getName(), u.getName())));
     }
 
     public String getName() {

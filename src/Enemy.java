@@ -1,9 +1,6 @@
 public abstract class Enemy extends Unit {
     //fields
-
     private DeathCallback dcb;
-
-
     private final int experience_value;
 
     //constructors

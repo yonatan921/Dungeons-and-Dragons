@@ -5,9 +5,9 @@ public class Wall extends Tile{
        super('#');
    }
 
+   //methods
     @Override
     public void accept(Unit unit) {
         unit.visit(this);
     }
-
 }

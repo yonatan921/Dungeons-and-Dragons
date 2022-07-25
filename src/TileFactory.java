@@ -6,28 +6,28 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TileFactory {
+    //fields
     private final List<Supplier<Player>> playersList;
     private final Map<Character, Supplier<Enemy>> enemiesMap;
     GameBoard gameBoard;
     Player selected;
 
+    //constructors
     public TileFactory(){
         playersList = initPlayers();
         enemiesMap = initEnemies();
-
-
     }
 
     private Map<Character, Supplier<Enemy>> initEnemies() {
         List<Supplier<Enemy>> enemies = Arrays.asList(
-                () -> new Monster('s', "Lannister Solider", 5, 8, 3,25, 3), //health poo 80
+                () -> new Monster('s', "Lannister Solider", 80, 8, 3,25, 3),
                 () -> new Monster('k', "Lannister Knight", 200, 14, 8, 50,   4),
                 () -> new Monster('q', "Queen's Guard", 400, 20, 15, 100,  5),
                 () -> new Monster('z', "Wright", 600, 30, 15,100, 3),
                 () -> new Monster('b', "Bear-Wright", 1000, 75, 30, 250,  4),
                 () -> new Monster('g', "Giant-Wright",1500, 100, 40,500,   5),
                 () -> new Monster('w', "White Walker", 2000, 150, 50, 1000, 6),
-                () -> new Monster('M', "The Mountain", 10, 60, 25,  500, 6), //health poo 1000
+                () -> new Monster('M', "The Mountain", 1000, 60, 25,  500, 6),
                 () -> new Monster('C', "Queen Cersei", 100, 10, 10,1000, 1),
                 () -> new Monster('K', "Night's King", 5000, 300, 150, 5000, 8),
                 () -> new Trap('B', "Bonus Trap", 1, 1, 1, 250,  1, 5),
@@ -49,13 +49,11 @@ public class TileFactory {
         );
     }
 
+    //methods
+
     public List<Player> listPlayers(){
         return playersList.stream().map(Supplier::get).collect(Collectors.toList());
     }
-
-
-    // TODO: Add additional callbacks of your choice
-
     public Enemy produceEnemy(char tile, Position position) {
         Supplier<Enemy> se = enemiesMap.get(tile);
         Enemy e = se.get();
@@ -70,7 +68,6 @@ public class TileFactory {
         player.init(System.out::println);
         return player;
     }
-
 
     public Empty produceEmpty(Position position){
         Empty e = new Empty();

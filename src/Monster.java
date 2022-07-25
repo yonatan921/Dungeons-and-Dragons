@@ -13,7 +13,7 @@ public class Monster extends Enemy {
     @Override
     public Position move(Player player) {
         Position newPosition = new Position(this.getPosition().getX(), this.getPosition().getY());
-        if (getPosition().distance(player.getPosition()) < getVision_range()){
+        if (getPosition().distance(player.getPosition()) < getVision_range()){ // chase the player
             int x = newPosition.getX() - player.getPosition().getX();
             int y = newPosition.getY() - player.getPosition().getY();
             if (Math.abs(x) > Math.abs(y)){
@@ -29,14 +29,14 @@ public class Monster extends Enemy {
                     newPosition.moveDown();
             }
         }
-        else {
+        else {  // make a random move
             Random random = new Random();
             int n = random.nextInt(4) ;
             if (n == 0)
                 newPosition.moveUp();
-            if (n==1)
+            if (n == 1)
                 newPosition.moveRight();
-            if (n==2)
+            if (n == 2)
                 newPosition.moveDown();
             else
                 newPosition.moveLeft();

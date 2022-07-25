@@ -1,14 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Warrior extends Player {
     //fields
     private final Integer ability_cooldown;
     private Integer remaining_cooldown =0;
-
     private final int CONST_range = 3;
 
+    //constructors
     public Warrior(String name, Integer health_pool, Integer attack_points, Integer defence_points, Integer ability_cooldown){
         super(name, health_pool, attack_points, defence_points);
         this.ability_cooldown = ability_cooldown;
@@ -27,11 +28,8 @@ public class Warrior extends Player {
 
     public void castAbility(List<Enemy> enemyList){
         if (getRemaining_cooldown() == 0){
-            List<Enemy> inRange = new ArrayList<>();
-            for (Enemy enemy : enemyList){
-                if (this.getPosition().distance(enemy.getPosition()) < getCONST_range())
-                    inRange.add(enemy);
-            }
+            List<Enemy> inRange = enemyList.stream().filter((c) ->this.getPosition().distance(c.getPosition()) <
+                    this.getCONST_range()).collect(Collectors.toList());
             Random random = new Random();
             if (!inRange.isEmpty()){
                 Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));

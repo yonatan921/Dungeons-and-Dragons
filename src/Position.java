@@ -5,13 +5,15 @@ public class Position implements Comparable<Position> {
     private int x;
     private int y;
 
+    //constructors
     public Position(int x,int y){
         this.x = x;
         this.y = y;
     }
 
+    //methods
     @Override
-    public int compareTo(Position o) {
+    public int compareTo(Position o) { // lex comparator
         if (y < o.y)
             return -1;
         if (y > o.y)
@@ -32,7 +34,10 @@ public class Position implements Comparable<Position> {
         Position position = (Position) o;
         return x == position.x && y == position.y;
     }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
     public void moveUp(){
         setY(getY() -1);
     }
@@ -45,19 +50,15 @@ public class Position implements Comparable<Position> {
     public void moveRight(){
         setX(getX() + 1);
     }
-
     public int getX() {
         return x;
     }
-
     public int getY() {
         return y;
     }
-
     public void setX(int x) {
         this.x = x;
     }
-
     public void setY(int y) {
         this.y = y;
     }
