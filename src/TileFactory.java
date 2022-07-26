@@ -9,8 +9,8 @@ public class TileFactory {
     //fields
     private final List<Supplier<Player>> playersList;
     private final Map<Character, Supplier<Enemy>> enemiesMap;
-    GameBoard gameBoard;
-    Player selected;
+    private DeathCallbackInitializer deathCallbackInitializer;
+    private Player selected;
 
     //constructors
     public TileFactory(){
@@ -59,7 +59,7 @@ public class TileFactory {
         Supplier<Enemy> se = enemiesMap.get(tile);
         Enemy e = se.get();
         e.initialize(position);
-        e.init(()-> gameBoard.remove(e), System.out::println);
+        e.init(deathCallbackInitializer.get(e), System.out::println);
         return e;
     }
 
@@ -82,7 +82,16 @@ public class TileFactory {
         return w;
     }
 
-    public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
+
+    public void setDeathCallbackInitializer(DeathCallbackInitializer deathCallbackInitializer){
+        this.deathCallbackInitializer = deathCallbackInitializer;
+    }
+
+    public void setSelected(int index) {
+        this.selected = listPlayers().get(index);;
+    }
+
+    public Player getSelected() {
+        return selected;
     }
 }

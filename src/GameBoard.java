@@ -9,10 +9,14 @@ public class GameBoard {
     public LevelManager levelManager;
 
 //------------------TODO ------------------------------ why do we need game Board???___-----
-    public GameBoard(LevelManager levelManager) {
+    public GameBoard() {
+
+    }
+
+    public void initialize(LevelManager levelManager){
         this.levelManager = levelManager;
-        this.tiles = levelManager.tiles;
-        boardWidth = levelManager.currLevelWidth;
+        this.tiles = levelManager.getTiles();
+        boardWidth = levelManager.getCurrLevelWidth();
     }
 
     public Tile get(int x, int y) throws Exception {
@@ -33,7 +37,7 @@ public class GameBoard {
         Position p = e.getPosition();
         int t = tiles.indexOf(e);
         tiles.remove(e);
-        levelManager.enemies.remove(e);
+        levelManager.getEnemies().remove(e);
         Empty newEmpty = new Empty();
         newEmpty.initialize(p);
         tiles.add(newEmpty);
@@ -64,8 +68,8 @@ public class GameBoard {
 
     public void advanceLevel(){
         levelManager.advanceLevel();
-        this.tiles = levelManager.tiles;
-        this.boardWidth = levelManager.currLevelWidth;
+        this.tiles = levelManager.getTiles();
+        this.boardWidth = levelManager.getCurrLevelWidth();
     }
 
 //    public void switchPosition(Tile tile1, Tile tile2, int shift) {

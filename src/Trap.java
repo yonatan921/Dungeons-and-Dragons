@@ -27,7 +27,7 @@ public class Trap extends Enemy {
         if (getTick_count() == (getVisibility_time() + getInvisibility_time()))
             setTick_count(0);
         else
-            setTick_count(getInvisibility_time() + 1); // add 1 to tick count
+            setTick_count(getTick_count() + 1); // add 1 to tick count
         if (this.getPosition().distance(player.getPosition()) < getVision_range()) // player is close
             this.battle(player); // attack player
     }

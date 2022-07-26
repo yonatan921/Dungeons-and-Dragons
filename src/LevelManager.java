@@ -6,22 +6,23 @@ import java.util.Collections;
 import java.util.List;
 
 public class LevelManager {
-    int currLevel;
-    int currLevelWidth;
-    public List<Tile> tiles;
-    public TileFactory tf;
-//    private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons\\levels_dir"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
-    private static final String path = "D:\\POOPass3\\new\\levels_dir";
-    public Player selected;
-    public List<Enemy> enemies;
+    private int currLevel;
 
-    public boolean won = false;
+    private int currLevelWidth;
+    private List<Tile> tiles;
+    private TileFactory tf;
+    private static final String path = "C:\\Users\\yonat\\IdeaProjects\\Dungeons and Dragons\\levels_dir"; //TODO: CHANGE THIS PATH TO URS BERFORE RUNNING
+//    private static final String path = "D:\\POOPass3\\new\\levels_dir";
+    private Player selected;
+    private List<Enemy> enemies;
+
+    private boolean won = false;
 
     public LevelManager(TileFactory tileFactory) {
         currLevel = 1;
         this.tf = tileFactory;
         enemies = new ArrayList<>();
-        selected = tileFactory.selected;
+        selected = tileFactory.getSelected();
         loadLevel(currLevel);
 
     }
@@ -93,5 +94,28 @@ public class LevelManager {
 
     public List<Enemy> getEnemies() {
         return enemies;
+    }
+    public int getCurrLevel() {
+        return currLevel;
+    }
+
+    public int getCurrLevelWidth() {
+        return currLevelWidth;
+    }
+
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
+    public TileFactory getTf() {
+        return tf;
+    }
+
+    public Player getSelected() {
+        return selected;
+    }
+
+    public boolean isWon() {
+        return won;
     }
 }

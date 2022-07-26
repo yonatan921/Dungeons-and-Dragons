@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
+
 
 public class GameFlow {
     private Player selected;
@@ -14,17 +14,17 @@ public class GameFlow {
     public void startGame() {
         this.tileFactory = new TileFactory();
         int player_index = selectPlayer();
-        tileFactory.selected = tileFactory.listPlayers().get(player_index);
-//        this.selected = tileFactory.listPlayers().get(player_index);
+        tileFactory.setSelected(player_index);
+        this.gameBoard = new GameBoard();
+        tileFactory.setDeathCallbackInitializer((e) -> (() -> gameBoard.remove(e)));
         this.levelManager= new LevelManager(tileFactory);
-        this.selected = levelManager.selected;
-        this.gameBoard = new GameBoard(levelManager);
-        tileFactory.setGameBoard(gameBoard);
-        this.gameBoard.tiles = this.gameBoard.tiles.stream().sorted().collect(Collectors.toList());
+        this.gameBoard.initialize(this.levelManager);
+        this.selected = levelManager.getSelected();
         gameTick();
     }
 
     private void gameTick() {
+        gameBoard.sortTiles();
         System.out.println("You have selected:");
         System.out.println(selected.getName());
         System.out.println(gameBoard);
@@ -68,8 +68,8 @@ public class GameFlow {
                     gameBoard.advanceLevel();
 
                 System.out.println(gameBoard);
-        } while(!(selected.getHealthAmount() == 0 || levelManager.won) );
-            if (levelManager.won)
+        } while(!(selected.getHealthAmount() == 0 || levelManager.isWon()) );
+            if (levelManager.isWon())
                 System.out.println("You WON!!!");
     }
 
