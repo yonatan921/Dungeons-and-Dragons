@@ -38,7 +38,7 @@ public class Monster extends Enemy {
                 newPosition.moveRight();
             if (n == 2)
                 newPosition.moveDown();
-            else
+            if (n == 3 )
                 newPosition.moveLeft();
         }
         return newPosition;
