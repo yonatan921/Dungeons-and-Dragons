@@ -34,19 +34,19 @@ public class GameFlow {
             c = validInput(); //ask for action
             Position newPosition = new Position(selected.getPosition().getX(), selected.getPosition().getY());
             switch (c) {
-                case 'w' -> {
+                case 'w' -> { //move up
                     newPosition.moveUp();
                     playerTick(newPosition);
                 }
-                case 'a' -> {
+                case 'a' -> { // move left
                     newPosition.moveLeft();
                     playerTick(newPosition);
                 }
-                case 's' -> {
+                case 's' -> { //move down
                     newPosition.moveDown();
                     playerTick(newPosition);
                 }
-                case 'd' -> {
+                case 'd' -> { //move right
                     newPosition.moveRight();
                     playerTick(newPosition);
                 }
