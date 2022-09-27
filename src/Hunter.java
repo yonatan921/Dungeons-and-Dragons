@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 
 public class Hunter extends Player{
@@ -18,18 +19,11 @@ public class Hunter extends Player{
     public void castAbility(List<Enemy> enemyList) {
         if (getArrows() > 0){
             setArrows(getArrows() -1);
-            Enemy closetEnemy = enemyList.get(0);
-            double distance = this.getPosition().distance(closetEnemy.getPosition());
-            for (Enemy enemy : enemyList){
-                double newDistance = this.getPosition().distance(enemy.getPosition());
-                if (newDistance < distance){
-                    closetEnemy = enemy;
-                    distance = newDistance;
-                }
-            }
-            if (distance < getRange()){
-                castAbility(closetEnemy);
-            }
+            Comparator<Enemy> enemyComparator = (enemy1, enemy2) ->
+                    (int) Math.signum(enemy1.getPosition().
+                            distance(this.getPosition()) - enemy2.getPosition().distance(this.getPosition()));
+            Enemy closetEnemy = enemyList.stream().min(enemyComparator).get();
+            if (this.getPosition().distance(closetEnemy.getPosition()) < range) castAbility(closetEnemy);
         }
         else
             this.messageCallback.send(new Message(this.getName() + " has no arrows"));

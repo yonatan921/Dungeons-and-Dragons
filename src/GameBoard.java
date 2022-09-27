@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,19 +36,19 @@ public class GameBoard {
     @Override
     public String toString() {
         tiles = tiles.stream().sorted().collect(Collectors.toList());
-        String output = "";
+        StringBuilder output = new StringBuilder();
         int counter = 0;
         for(Tile t : tiles) {
 
             if(counter < boardWidth) {
-                output += t.toString();
+                output.append(t.toString());
                 counter++;
             } else {
-                output += "\n" + t.toString();
+                output.append("\n").append(t.toString());
                 counter = 1;
             }
         }
-        return output;
+        return output.toString();
     }
 
     public void advanceLevel(){

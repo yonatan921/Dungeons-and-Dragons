@@ -1,6 +1,5 @@
-import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class GameFlow {
@@ -106,7 +105,7 @@ public class GameFlow {
     }
 
     private char validInput(){
-        List<Character> validChars = Arrays.asList('a', 's', 'd', 'w', 'e', 'q') ;  // valid keys
+        Set<Character> validChars = Set.of('a', 's', 'd', 'w', 'e', 'q') ;  // valid keys
         while (true){
             Scanner scanner = new Scanner(System.in);
             String string = scanner.next();

@@ -39,15 +39,15 @@ public abstract class Enemy extends Unit {
     public abstract void gameTick(Player player);
 
     public void setExperience(Unit unit) {
-        //Enemy cannot get EXP do nothing
+        //Enemy cannot get EXP
     }
 
     public void levelUp() {
-        //DO nothing
+        //Enemy cannot level up
     }
 
     public void visit(Enemy enemy) {
-        //do nothing
+        //Do nothing
     }
 
     public void acceptEXP(Player player) {
