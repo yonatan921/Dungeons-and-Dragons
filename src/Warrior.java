@@ -1,6 +1,5 @@
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class Warrior extends Player {
     //fields
@@ -27,11 +26,11 @@ public class Warrior extends Player {
 
     public void castAbility(List<Enemy> enemyList){
         if (getRemaining_cooldown() == 0){
-            List<Enemy> inRange = enemyList.stream().filter((c) ->this.getPosition().distance(c.getPosition()) <
-                    this.getCONST_range()).collect(Collectors.toList());
-            Random random = new Random();
-            if (!inRange.isEmpty()){
-                Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
+            List<Enemy> enemiesInRange = enemyList.stream().filter((e) -> this.getPosition().distance(e.getPosition()) <
+                    this.getCONST_range()).toList();
+            if (!enemiesInRange.isEmpty()){
+                Random random = new Random();
+                Enemy randomEnemy = enemiesInRange.get(random.nextInt(enemiesInRange.size()));
                 this.castAbility(randomEnemy);
             }
             setRemaining_cooldown(getAbility_cooldown());

@@ -23,7 +23,7 @@ public class Hunter extends Player{
                     (int) Math.signum(enemy1.getPosition().
                             distance(this.getPosition()) - enemy2.getPosition().distance(this.getPosition()));
             Enemy closetEnemy = enemyList.stream().min(enemyComparator).get();
-            if (this.getPosition().distance(closetEnemy.getPosition()) < range) castAbility(closetEnemy);
+            if (this.getPosition().distance(closetEnemy.getPosition()) < getRange()) castAbility(closetEnemy);
         }
         else
             this.messageCallback.send(new Message(this.getName() + " has no arrows"));

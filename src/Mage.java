@@ -37,15 +37,15 @@ public class Mage extends Player{
         if (getMana_cost() <= getCurrent_mana()){
             setCurrent_mana(getMana_pool() - getMana_cost());
             int hits = 0;
-            List<Enemy> inRange = enemyList.stream().filter((c) ->this.getPosition().distance(c.getPosition()) <
+            List<Enemy> enemiesInRange = enemyList.stream().filter((enemy) ->this.getPosition().distance(enemy.getPosition()) <
                     this.getAbility_range()).collect(Collectors.toList());
-            while ((hits < getHits_count()) && !(inRange.isEmpty())){
+            while ((hits < getHits_count()) && !(enemiesInRange.isEmpty())){
                 Random random = new Random();
-                Enemy randomEnemy = inRange.get(random.nextInt(inRange.size()));
+                Enemy randomEnemy = enemiesInRange.get(random.nextInt(enemiesInRange.size()));
                 this.castAbility(randomEnemy);
                 hits++;
-                if (randomEnemy.getHealthAmount() == 0) // todo const death value
-                    inRange.remove(randomEnemy);
+                if (randomEnemy.getHealthAmount() == 0)
+                    enemiesInRange.remove(randomEnemy);
             }
         }
         else

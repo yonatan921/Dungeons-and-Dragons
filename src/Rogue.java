@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rogue extends Player {
@@ -26,13 +25,11 @@ public class Rogue extends Player {
     }
 
     public void castAbility(List<Enemy> enemyList){
-        List<Enemy> enemiesClone = new ArrayList<>(enemyList);
         if (getCurrent_energy() > getCost()){
             setCurrent_energy(getCurrent_energy() - getCost());
-            for (Enemy enemy : enemiesClone){
-                if (this.getPosition().distance(enemy.getPosition()) < getRange())
-                    enemy.specialAbility(this);
-            }
+            List<Enemy> enemiesInRange = enemyList.stream().
+                    filter(enemy -> this.getPosition().distance(enemy.getPosition()) < getRange()).toList();
+            enemiesInRange.forEach(this::castAbility);
         }
         else
             this.send(new Message(this.getName() + " has not enough energy"));

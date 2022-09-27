@@ -63,11 +63,10 @@ public class TileFactory {
         return e;
     }
 
-    public Player producePlayer(Position position) {
+    public void producePlayer(Position position) {
         Player player = selected;
         player.initialize(position);
         player.init(System.out::println);
-        return player;
     }
 
     public Empty produceEmpty(Position position){
