@@ -74,8 +74,8 @@ public class GameFlow {
     }
 
     private Tile tileInPosition(Position position){
-        int calc = position.getY() * gameBoard.boardWidth + position.getX(); //find the tile in position
-        return gameBoard.tiles.get(calc);
+        int calc = position.getY() * gameBoard.getBoardWidth() + position.getX(); //find the tile in position
+        return gameBoard.getTiles().get(calc);
     }
 
     private void playerTick(Position newPosition){

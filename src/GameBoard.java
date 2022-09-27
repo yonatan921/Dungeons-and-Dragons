@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameBoard {
-    public List<Tile> tiles;
-    public int boardWidth;
-    public LevelManager levelManager;
+    private List<Tile> tiles;
+    private int boardWidth;
+    private LevelManager levelManager;
 
     public GameBoard() {
 
@@ -62,4 +62,15 @@ public class GameBoard {
     }
 
 
+    public List<Tile> getTiles() {
+        return tiles;
+    }
+
+    public int getBoardWidth() {
+        return boardWidth;
+    }
+
+    public LevelManager getLevelManager() {
+        return levelManager;
+    }
 }
